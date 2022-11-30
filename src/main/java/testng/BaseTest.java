@@ -110,7 +110,6 @@ public class BaseTest {
                 return false;
             }
         });
-
     }
 
     public void scrollUntil1(By locator, By locator2) {

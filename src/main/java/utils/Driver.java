@@ -3,6 +3,7 @@ package utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -35,8 +36,14 @@ public class Driver {
                     drivers.set(new SafariDriver());
                     break;
                 default:
+                    ChromeOptions options = new ChromeOptions();
+                    if (BrowserConfig.headless)
+                        options.addArguments("--headless");
+                    if (BrowserConfig.startMaximize)
+                        options.addArguments("--start-maximized");
+
                     WebDriverManager.chromedriver().setup();
-                    drivers.set(new ChromeDriver());
+                    drivers.set(new ChromeDriver(options));
             }
         }
         return drivers.get();

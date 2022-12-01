@@ -7,6 +7,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+import utils.BrowserConfig;
 import utils.Driver;
 
 import java.time.Duration;
@@ -16,6 +17,7 @@ public class BaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
+    public static boolean takeScreenShot = false;
 
     @BeforeTest
     @Parameters("browser")

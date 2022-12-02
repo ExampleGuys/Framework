@@ -1,25 +1,22 @@
 package cucumber.pages;
 
-import cucumber.runners.runner2;
-import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.TestNGCucumberRunner;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import utils.Driver;
-
-
-@CucumberOptions(
-        features = {"src/test/resources/features/feature2.feature"},
-        glue = {"cucumber/stepdefs"}
-)
-
 
 public class BaseRunner {
 
     protected TestNGCucumberRunner testNGCucumberRunner;
+    public static boolean runsWithRunner = true;
+
 
     @BeforeTest
-    public void beforeTest(){
+    @Parameters("browser")
+    public void beforeTest(@Optional("chrome") String browser){
+        Driver.getDriver(browser);
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
 

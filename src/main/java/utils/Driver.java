@@ -51,8 +51,10 @@ public class Driver {
 
 
     public static void quitDriver(){
-        if (drivers.get() != null)
+        if (drivers.get() != null) {
             drivers.get().quit();
+            drivers.set(null);
+        }
     }
 
 

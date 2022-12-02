@@ -1,4 +1,4 @@
-package cucumber.authentication;
+package authentication;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

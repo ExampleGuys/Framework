@@ -1,7 +1,7 @@
-package cucumber.runners;
+package cucumber1.runners;
 
 
-import cucumber.pages.BaseRunner;
+import cucumber1.pages.BaseRunner;
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.FeatureWrapper;
 import io.cucumber.testng.PickleWrapper;

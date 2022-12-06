@@ -1,4 +1,4 @@
-package cucumber.stepdefs;
+package cucumber1.stepdefs;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -25,5 +25,6 @@ public class MyStepdefs {
     public void listedProductCountShouldBe(int num) {
         //searchPage = new SearchPage();
         Assert.assertEquals(searchPage.getProductNumber(), num);
+        userOnHomepage();
     }
 }

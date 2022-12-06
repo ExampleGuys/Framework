@@ -1,4 +1,4 @@
-package cucumber.pages;
+package cucumber1.pages;
 
 import io.cucumber.testng.TestNGCucumberRunner;
 import org.testng.annotations.AfterTest;

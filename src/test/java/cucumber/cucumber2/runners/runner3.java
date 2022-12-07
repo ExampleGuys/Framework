@@ -1,7 +1,7 @@
-package cucumber1.runners;
+package cucumber.cucumber2.runners;
 
 
-import cucumber1.pages.BaseRunner;
+import cucumber.cucumber1.pages.BaseRunner;
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.FeatureWrapper;
 import io.cucumber.testng.PickleWrapper;
@@ -9,12 +9,12 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 @CucumberOptions(
-        features = {"src/test/resources/features/feature1.feature"},
-        glue = {"cucumber/stepdefs"}
+        features = {"src/test/java/cucumber2/features"},
+        glue = {"cucumber/cucumber2/stepdefs"}
 )
 
 
-public class runner2 extends BaseRunner {
+public class runner3 extends BaseRunner {
 
 
     @Test(dataProvider = "scenarios")

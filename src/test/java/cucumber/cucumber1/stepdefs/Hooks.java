@@ -1,6 +1,6 @@
-package cucumber1.stepdefs;
+package cucumber.cucumber1.stepdefs;
 
-import cucumber1.pages.BaseRunner;
+import cucumber.cucumber1.pages.BaseRunner;
 import io.cucumber.java.*;
 import utils.Driver;
 

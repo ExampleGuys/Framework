@@ -1,4 +1,4 @@
-package cucumber1.pages;
+package cucumber.cucumber1.pages;
 
 import io.cucumber.testng.TestNGCucumberRunner;
 import org.testng.annotations.AfterTest;
@@ -23,6 +23,11 @@ public class BaseRunner {
     @AfterTest
     public void afterTest(){
         testNGCucumberRunner.finish();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Driver.quitDriver();
     }
 }

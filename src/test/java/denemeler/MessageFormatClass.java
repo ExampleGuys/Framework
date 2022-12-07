@@ -1,6 +1,6 @@
 package denemeler;
 
-import cucumber2.pages.TempTest;
+import cucumber.cucumber2.pages.TempTest;
 
 import java.text.MessageFormat;
 

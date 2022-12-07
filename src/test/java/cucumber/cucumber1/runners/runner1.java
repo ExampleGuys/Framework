@@ -1,4 +1,4 @@
-package cucumber1.runners;
+package cucumber.cucumber1.runners;
 
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
@@ -7,8 +7,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 @CucumberOptions(
-        features = {"src/test/resources/features/feature1.feature"},
-        glue = {"cucumber/stepdefs"}
+        features = {"src/test/java/cucumber1/features/feature1.feature"},
+        glue = {"cucumber/cucumber1/stepdefs"}
 )
 
 //@RunWith(Cucumber.class)

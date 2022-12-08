@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import utils.Utils;
 
 import java.io.*;
 import java.util.List;
@@ -38,6 +39,7 @@ public class TextFile {
     }
 
     private void create() {
+        Utils.createDirectory(filePath);
         File file = new File(filePath);
         if (file.exists() && !overwrite) {
             try {

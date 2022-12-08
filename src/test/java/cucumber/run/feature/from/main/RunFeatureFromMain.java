@@ -12,10 +12,12 @@ public class RunFeatureFromMain {
     public static void main(String[] args) {
         getFeatureFromExcel();
 
-        String [] argv = new String[]{ "-g","","testOutput/feature1.feature"};
+
+        String [] argv = new String[]{ "-g","","src/test/resources/features/feature1.feature"};
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         byte exitstatus = run(argv, contextClassLoader);
         System.out.println(exitstatus);
+
     }
 
     public static void getFeatureFromExcel(){
@@ -28,7 +30,7 @@ public class RunFeatureFromMain {
 
         List<String> list = ExcelFile.read("testOutput/excel.xlsx").getColumn("Steps", 1);
 
-        TextFile.create("testOutput/feature1.feature", true)
+        TextFile.create("src/test/resources/features/feature1.feature", true)
                 .write("Feature: Future name")
                 .write("Scenario: Scenario name")
                 .write(list)

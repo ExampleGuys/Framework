@@ -57,6 +57,20 @@ public class Utils {
 
     }
 
+    public static void createDirectory(String fileWithPath){
+        String[] pathArray = fileWithPath.split("/");
+        String path = "";
+        if (pathArray.length>0) {
+            for (int i = 0; i < pathArray.length - 1; i++) {
+                path += pathArray[i] + "/";
+            }
+        }
+        File theDir = new File(path);
+        if (!theDir.exists()){
+            theDir.mkdirs();
+        }
+    }
+
 
 
 

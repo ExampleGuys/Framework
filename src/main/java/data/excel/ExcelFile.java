@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import utils.Utils;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -64,17 +65,7 @@ public class ExcelFile {
     }
 
     private void create(){
-        String[] pathArray = filePath.split("/");
-        String path = "";
-        if (pathArray.length>0) {
-            for (int i = 0; i < pathArray.length - 1; i++) {
-                path += pathArray[i] + "/";
-            }
-        }
-        File theDir = new File(path);
-        if (!theDir.exists()){
-            theDir.mkdirs();
-        }
+        Utils.createDirectory(filePath);
         workbook = new XSSFWorkbook();
         sheet = workbook.createSheet(sheetName);
     }

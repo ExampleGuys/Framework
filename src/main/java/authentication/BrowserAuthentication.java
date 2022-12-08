@@ -11,18 +11,13 @@ import java.io.IOException;
 
 public class BrowserAuthentication extends BaseTest {
 
-    String url = "https://the-internet.herokuapp.com/basic_auth";
-    String urlBasic = "https://admin:admin@the-internet.herokuapp.com/basic_auth";
-    String username = "admin";
-    String password = "admin";
-
-
     By basicAuthText = By.xpath("//h3[contains(., 'Basic Auth')]");
 
     @Test
-    public void authentication1() throws AWTException {
-        driver.get(url);
+    public void authenticationWithRobotClass() throws AWTException {
+        String url = "https://the-internet.herokuapp.com/basic_auth";
 
+        driver.get(url);
         Robot robot = new Robot();
         robot.keyPress(KeyEvent.VK_A);robot.delay(50);
         robot.keyPress(KeyEvent.VK_D);robot.delay(50);
@@ -43,14 +38,15 @@ public class BrowserAuthentication extends BaseTest {
 
 
     @Test
-    public void authentication2(){
-
-        driver.get(urlBasic);
+    public void authenticationWithURL(){
+        String url = "https://admin:admin@the-internet.herokuapp.com/basic_auth";
+        driver.get(url);
         wait.until(ExpectedConditions.visibilityOfElementLocated(basicAuthText));
     }
 
     @Test
-    public void authentication3() throws IOException {
+    public void authenticationWithAutoIt() throws IOException {
+        String url = "https://the-internet.herokuapp.com/basic_auth";
         driver.get(url);
         Runtime.getRuntime().exec("src/main/resources/login.exe");
         wait.until(ExpectedConditions.visibilityOfElementLocated(basicAuthText));

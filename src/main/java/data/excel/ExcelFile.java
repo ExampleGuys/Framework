@@ -6,11 +6,8 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ExcelFile {
@@ -23,22 +20,42 @@ public class ExcelFile {
         return new ExcelFile(fileName, sheetName);
     }
 
+    public static ExcelFile read(String fileName){
+        return new ExcelFile(fileName, true);
+    }
+
+    public static ExcelFile read(String fileName, String sheetName){
+        return new ExcelFile(fileName, sheetName, true);
+    }
+
+
     private String filePath;
     private String sheetName;
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
     private boolean isFileExist = false;
+    File file;
+    private FileInputStream inputStream;
+    private FileOutputStream outputStream;
 
-    private FileInputStream inputStream=null;
 
     private ExcelFile(String filePath, String sheetName){
         this.filePath = filePath;
         this.sheetName = sheetName;
-        createExcelFile();
+        create();
     }
 
     private ExcelFile(String filePath){
-        this(filePath, "sheet1");
+        this(filePath, "Sheet1");
+    }
+
+    private ExcelFile(String filePath, String sheetName, boolean read){
+        this.filePath = filePath;
+        this.sheetName = sheetName;
+        read();
+    }
+    private ExcelFile(String filePath, boolean read){
+        this(filePath, "Sheet1", read);
     }
 
     public ExcelFile setSheetName(String sheetName){
@@ -46,20 +63,42 @@ public class ExcelFile {
         return this;
     }
 
-    private void createExcelFile(){
-        File file = new File(filePath);
-        if (file.exists()) {
-            try {
-                inputStream = new FileInputStream(filePath);
-                workbook = (XSSFWorkbook) WorkbookFactory.create(inputStream);
-                sheet = workbook.getSheet(sheetName);
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void create(){
+        String[] pathArray = filePath.split("/");
+        String path = "";
+        if (pathArray.length>0) {
+            for (int i = 0; i < pathArray.length - 1; i++) {
+                path += pathArray[i] + "/";
             }
+        }
+        File theDir = new File(path);
+        if (!theDir.exists()){
+            theDir.mkdirs();
+        }
+        workbook = new XSSFWorkbook();
+        sheet = workbook.createSheet(sheetName);
+    }
+
+    public void read(){
+        file = new File(filePath);
+        try {
+            inputStream = new FileInputStream(filePath);
+            workbook = (XSSFWorkbook) WorkbookFactory.create(inputStream);
+            sheet = workbook.getSheet(sheetName);
             isFileExist = true;
-        }else{
-            workbook = new XSSFWorkbook();
-            sheet = workbook.createSheet(sheetName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void close(){
+        try {
+            outputStream = new FileOutputStream(filePath);
+            workbook.write(outputStream);
+            workbook.close();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -69,6 +108,17 @@ public class ExcelFile {
             for (int i = 0; i < headers.size(); i++) {
                 Cell cell = row.createCell(i);
                 cell.setCellValue(headers.get(i));
+            }
+        }
+        return this;
+    }
+
+    public ExcelFile setHeader(String...headers){
+        if (!isFileExist) {
+            Row row = sheet.createRow(0);
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = row.createCell(i);
+                cell.setCellValue(headers[i]);
             }
         }
         return this;
@@ -86,25 +136,25 @@ public class ExcelFile {
         return this;
     }
 
-    public void writeExcel(){
-        FileOutputStream outputStream = null;
-        try {
-            outputStream = new FileOutputStream(filePath);
-            workbook.write(outputStream);
-            workbook.close();
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public ExcelFile writeData(String...args){
+        if (!isFileExist) {
+            int rowNum = sheet.getPhysicalNumberOfRows();
+            Row row = sheet.createRow(rowNum++);
+            for (int i = 0; i < args.length; i++) {
+                Cell cell = row.createCell(i);
+                cell.setCellValue(args[i]);
+            }
         }
+        return this;
     }
 
     public List<List<String>> getData() {
-        List<List<String>> lists = new ArrayList<>();
+        List<List<String>> lists = new LinkedList<>();
 
         int rowCount = sheet.getPhysicalNumberOfRows();
 
         for(int i = 0; i < rowCount; i++) {
-            List<String> rowList = new ArrayList<>();
+            List<String> rowList = new LinkedList<>();
             Row row = sheet.getRow(i);
 
             int cellCount = row.getPhysicalNumberOfCells();
@@ -119,7 +169,7 @@ public class ExcelFile {
 
 
     public List<String> getHeader() {
-        List<String> list = new ArrayList<>();
+        List<String> list = new LinkedList<>();
 
         sheet = workbook.getSheet(sheetName);
 
@@ -134,7 +184,7 @@ public class ExcelFile {
     }
 
     public List<String> getRow(int rowNumber) {
-        List<String> list = new ArrayList<>();
+        List<String> list = new LinkedList<>();
 
         sheet = workbook.getSheet(sheetName);
 
@@ -154,7 +204,7 @@ public class ExcelFile {
      * @return list
      */
     public List<String> getColumn(int colNum) {
-        List<String> list = new ArrayList<>();
+        List<String> list = new LinkedList<>();
 
         int rowCount = sheet.getPhysicalNumberOfRows();
         int colNumExcel = sheet.getRow(0).getPhysicalNumberOfCells();
@@ -162,6 +212,30 @@ public class ExcelFile {
         for(int i = 0; i < rowCount; i++) {
             Row row = sheet.getRow(i);
             list.add(row.getCell(colNum).toString());
+        }
+        return list;
+    }
+
+    /**
+     * Bu method exeldeki belirtilen sütun degerlerini list olarak return eder
+     * @param colName verisi istenilen column adi
+     * @return list
+     */
+    public List<String> getColumn(String colName, int startFromRow) {
+        List<String> list = new LinkedList<>();
+        int requiredColNum = 0;
+        int rowCount = sheet.getPhysicalNumberOfRows();
+        int colNumExcel = sheet.getRow(0).getPhysicalNumberOfCells();
+        Row row0 = sheet.getRow(0);
+        for (int i = 0; i < colNumExcel; i++) {
+            if (row0.getCell(i).toString().toLowerCase().equals(colName.toLowerCase())){
+                requiredColNum = i;
+                break;
+            }
+        }
+        for(int i = startFromRow; i < rowCount; i++) {
+            Row row = sheet.getRow(i);
+            list.add(row.getCell(requiredColNum).toString());
         }
         return list;
     }

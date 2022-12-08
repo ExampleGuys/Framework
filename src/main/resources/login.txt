@@ -1,0 +1,29 @@
+Browserda authentication icin acilan popup menüsü HTML'ye degil Browser'a aittir.
+Bu nedenle selenium bu popup'a ulasamaz. Burada sendkeys ya da click yapmak icin
+ya robot class ya da AutoIt uygulamasi kullanilabilir.
+
+login.exe file AutoIt uygulamasi ile yapilmistir.
+https://www.autoitscript.com/site/autoit/downloads/
+AutoIt .au3 uzantili dosya kullanir.
+.ua3 dosyasi basit windows scriptleri icerir. AutoIt bu dosyayi .exe dosyasina cevirir.
+Robot class ile yapilacak islem daha kisa islem ile yapilir.
+
+Runtime.getRuntime().exec("src/main/resources/login.exe");
+komutu ile login.exe dosyasi calistirilir.
+
+Örnek: login.ua3 dosyasi icerigi asagidadir.
+Send("admin")
+Send("{TAB}")
+Send("admin")
+Send("{TAB}")
+Send("{ENTER}")
+
+
+login.exe calistirildiginda, "admin" yazar, TAB'a basar, "admin" yazar, TAB'a basar, ENTER'a basar.
+
+bu islem aktif element üzerinde yapilir. Browser acildiginda aktif element Authentication popup'i olacagi
+icin bu siralama ile istenilen yapilir.
+O an aktif pencere baska pencere ise bu islemler orada yapilir.
+
+
+

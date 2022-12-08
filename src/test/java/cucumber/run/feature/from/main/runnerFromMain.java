@@ -1,4 +1,4 @@
-package cucumber.cucumber1.runners;
+package cucumber.run.feature.from.main;
 
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
@@ -7,12 +7,12 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 @CucumberOptions(
-        features = {"src/test/java/cucumber/cucumber1/features/feature1.feature"},
+        features = {"testOutput/feature1.feature"},
         glue = {"cucumber/cucumber1/stepdefs"}
 )
 
 //@RunWith(Cucumber.class)
-public class runner1 extends AbstractTestNGCucumberTests {
+public class runnerFromMain extends AbstractTestNGCucumberTests {
 
     @BeforeTest
     public void beforeTest(){

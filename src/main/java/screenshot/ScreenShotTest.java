@@ -1,6 +1,5 @@
 package screenshot;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import testng.BaseTest;
 import utils.BrowserConfig;
@@ -24,7 +23,7 @@ public class ScreenShotTest extends BaseTest {
         sendKeys(searchInput, "mac");
         click(searchButton);
         String title = driver.getTitle();
-        Utils.myAssertA(title, "mac");
+        Utils.myAssertThenFail(title, "mac");
         /*
         try {
             Assert.assertEquals(title, "mac");

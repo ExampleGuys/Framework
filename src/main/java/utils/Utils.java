@@ -4,7 +4,6 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
-import testng.BaseTest;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class Utils {
 
     }
 
-    public static void myAssertA(String a, String b){
+    public static void myAssertThenFail(String a, String b){
         try {
             Assert.assertEquals(a, b);
         }catch (AssertionError e){

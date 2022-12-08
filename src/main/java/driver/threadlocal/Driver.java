@@ -10,20 +10,47 @@ import org.openqa.selenium.safari.SafariDriver;
 import static driver.browser.options.BrowserOptions.*;
 
 public class Driver {
+    /*
+     * ThreadLocal her bir thread icin ayri ayri static driver tutmak icin kullanilir.
+     * sadece .get, .set ve .remove methodlari vardir.
+     * Bir islem baslatilir ve ThreadLocal'e chrome atanirsa, o islem icinde
+     * herhangi bir zaman .get methodu ile olusturulan chrome driver'a ulasilabilir.
+     */
 
+
+    /**
+     * ThreadLocal static drivers degiskeni
+     */
     private static ThreadLocal<WebDriver> drivers = new ThreadLocal<>();
 
-    public static WebDriver getDriver(){
+    /**
+     * Default olarak chrome driver olusturur
+     *
+     * @return chrome webdriver
+     */
+    public static WebDriver getDriver() {
         return getDriver("chrome");
     }
 
-    public static WebDriver getDriver(Browser browser){
+    /**
+     * Browser enum'nda aldigi browseri olusturur.
+     *
+     * @param browser browser name, Browser enum'indan alir
+     * @return webdriver
+     */
+    public static WebDriver getDriver(Browser browser) {
         return getDriver(browser.toString());
     }
 
-    public static WebDriver getDriver(String browser){
+    /**
+     * String olarak aldigi browser'i olusturur
+     *
+     * @param browser string olarak browser adi
+     * @return webdriver
+     */
+    public static WebDriver getDriver(String browser) {
         if (drivers.get() == null) {
-            switch (browser.toLowerCase()){
+            switch (browser.toLowerCase()) {
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
                     drivers.set(new FirefoxDriver(firefoxOptions()));
@@ -44,10 +71,14 @@ public class Driver {
         return drivers.get();
     }
 
-
-    public static void quitDriver(){
-        if (drivers.get() != null)
+    /**
+     * driver'i kapatir ve null yapar
+     */
+    public static void quitDriver() {
+        if (drivers.get() != null) {
             drivers.get().quit();
+            drivers.set(null);
+        }
     }
 
 

@@ -53,4 +53,14 @@ public class BrowserAuthentication extends BaseTest {
 
     }
 
+    @Test
+    public void fedAuthentication(){
+        String url = "https://the-internet.herokuapp.com/basic_auth";
+        String user = "admin";
+        String pass = "admin";
+        driver.get(url);
+        driver.get(driver.getCurrentUrl().replace("://", "://" + user + ":" + pass + "@"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(basicAuthText));
+    }
+
 }

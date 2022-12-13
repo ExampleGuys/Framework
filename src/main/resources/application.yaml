@@ -7,3 +7,5 @@ database:
   dbname: "deneme"
   username: "user"
   password: "pass"
+
+

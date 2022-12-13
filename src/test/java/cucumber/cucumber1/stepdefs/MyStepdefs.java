@@ -27,4 +27,5 @@ public class MyStepdefs {
         Assert.assertEquals(searchPage.getProductNumber(), num);
         userOnHomepage();
     }
+
 }

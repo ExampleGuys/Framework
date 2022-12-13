@@ -16,6 +16,11 @@ public class ScreenShotTest extends BaseTest {
         BrowserConfig.takeScreenShot = true;
     }
 
+    public static void main(String[] args) {
+        System.out.println((int)Character.MAX_VALUE);
+
+    }
+
     @Test
     public void test_Screenshot1(){
 

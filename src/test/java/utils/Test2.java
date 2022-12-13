@@ -8,6 +8,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class Test2 {
 
     WebDriver driver;
@@ -38,6 +40,15 @@ public class Test2 {
         driver.findElement(name).sendKeys("Ahmet");
     }
 
+
+    @Test
+    public void test3(){
+        List<WebElement> list = driver.findElements(By.cssSelector("input"));
+        list.stream()
+                .filter(e->e.isDisplayed()).filter(e->e.getAttribute("id").contains("a")).toList().get(0);
+
+
+    }
 
     public void write(String str){
         write(str, 1);

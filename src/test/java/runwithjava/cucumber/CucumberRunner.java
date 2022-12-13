@@ -1,4 +1,4 @@
-package cucumber.run.feature.from.main;
+package runwithjava.cucumber;
 
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeTest;
 )
 
 //@RunWith(Cucumber.class)
-public class runnerFromMain extends AbstractTestNGCucumberTests {
+public class CucumberRunner extends AbstractTestNGCucumberTests {
 
     @BeforeTest
     public void beforeTest(){

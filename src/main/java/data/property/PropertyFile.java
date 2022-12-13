@@ -24,7 +24,7 @@ public class PropertyFile {
     private PropertyFile load() {
         try {
             fileReader = new FileReader(filePath);
-            fileWriter = new FileWriter(filePath);
+            //fileWriter = new FileWriter(filePath);
             properties.load(fileReader);
         } catch (IOException e) {
             try {
@@ -54,6 +54,10 @@ public class PropertyFile {
 
     public String get(String key) {
         return properties.getProperty(key);
+    }
+
+    public Properties getProperties(){
+        return properties;
     }
 
     public PropertyFile put(String key, String value) {
